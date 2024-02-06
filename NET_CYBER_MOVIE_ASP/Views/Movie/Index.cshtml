@@ -1,0 +1,52 @@
+﻿@model List<Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<h4>Movie</h4>
+<hr />
+@foreach (Movie item in Model)
+{
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.PosterUrl)
+            </dt>
+            <dd class="col-sm-10">
+                <img src="@Html.DisplayFor(model => item.PosterUrl)" alt="Movie Poster of @item.Title" />
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.Release)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Release)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => item.Score)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Score)
+            </dd>
+        </dl>
+
+        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+    </div>
+    <hr />
+}
