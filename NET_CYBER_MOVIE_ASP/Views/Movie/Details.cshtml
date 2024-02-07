@@ -1,0 +1,42 @@
+﻿@model Movie
+
+<div>
+
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(m => Model.PosterUrl)
+        </dt>
+        <dd>
+            <img src="@Html.DisplayFor(m => Model.PosterUrl)" alt="Poster of @Model.Title" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => Model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => Model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => Model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => Model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => Model.Release)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => Model.Release)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => Model.Score)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => Model.Score)
+        </dd>
+    </dl>
+
+    <a class="btn btn-primary" asp-controller="Movie" asp-action="Index">Back to list</a> |
+    <a class="btn btn-warning" asp-controller="Movie" asp-action="Edit" asp-route-id="@Model.Id"> Edit </a> |
+    <a class="btn btn-danger" asp-controller="Movie" asp-action="Delete" asp-route-id="@Model.Id">Delete </a>
+
+</div>

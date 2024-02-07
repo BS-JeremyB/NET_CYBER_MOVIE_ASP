@@ -1,0 +1,51 @@
+﻿@model List<Movie>
+
+
+<h2>Movie List</h2>
+
+<hr />
+
+@foreach(Movie movie in Model)
+{
+    <div>
+
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(m => movie.PosterUrl)
+            </dt>
+            <dd>
+                <img src="@Html.DisplayFor(m => movie.PosterUrl)" alt="Poster of @movie.Title" />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => movie.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => movie.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => movie.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => movie.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => movie.Release)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => movie.Release)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => movie.Score)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => movie.Score)
+            </dd>
+        </dl>
+
+        <a class="btn btn-primary" asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">Details</a> |
+        <a class="btn btn-warning" asp-controller="Movie" asp-action="Edit" asp-route-id="@movie.Id"> Edit </a> |
+        <a class="btn btn-danger" asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id">Delete </a>
+
+    </div>
+    <hr />
+}
