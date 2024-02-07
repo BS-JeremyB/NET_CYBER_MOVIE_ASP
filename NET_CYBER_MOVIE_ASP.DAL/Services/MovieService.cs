@@ -13,27 +13,45 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
 
     public class MovieService : IMovieService
     {
+<<<<<<< HEAD
         private readonly SqlConnection _connection;
 
         public MovieService(SqlConnection connection)
+=======
+        private readonly IDbConnection _connection;
+
+        public MovieService(IDbConnection connection)
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
         {
             _connection = connection;
         }
 
         public void AddMovie(Movie movie)
         {
+<<<<<<< HEAD
             using(SqlCommand command = _connection.CreateCommand())
+=======
+            using(IDbCommand command = _connection.CreateCommand())
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
             {
                 command.CommandText = "INSERT INTO Movie (PosterUrl, Title, Description, Release, Score)" +
                                       "VALUES (@PosterUrl, @Title, @Description, @Release, @Score)  ";
 
 
+<<<<<<< HEAD
                 command.Parameters.AddWithValue("@PosterUrl", movie.PosterUrl); 
                 command.Parameters.AddWithValue("@Title", movie.Title); 
                 command.Parameters.AddWithValue("@Description", movie.Description); 
                 command.Parameters.AddWithValue("@Release", movie.Release); 
                 command.Parameters.AddWithValue("@Score", movie.Score); 
     
+=======
+                command.Parameters.Add(new SqlParameter("@PosterUrl", movie.PosterUrl));
+                command.Parameters.Add(new SqlParameter("@Title", movie.Title));
+                command.Parameters.Add(new SqlParameter("@Description", movie.Description));
+                command.Parameters.Add(new SqlParameter("@Release", movie.Release));
+                command.Parameters.Add(new SqlParameter("@Score", movie.Score));
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
                 _connection.Open();
 
                 command.ExecuteNonQuery();
@@ -44,6 +62,7 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
 
         public void DeleteMovie(int id)
         {
+<<<<<<< HEAD
             using(SqlCommand command = _connection.CreateCommand())
             {
                 command.CommandText = "DELETE FROM Movie WHERE @id = Id";
@@ -54,10 +73,14 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
                 _connection.Close();
 
             }
+=======
+            throw new NotImplementedException();
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
         }
 
         public IEnumerable<Movie> GetAll()
         {
+<<<<<<< HEAD
 
             List<Movie> movies = new List<Movie>();
 
@@ -85,10 +108,14 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
                 _connection.Close();
                 return movies;
             }
+=======
+            throw new NotImplementedException();
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
         }
 
         public Movie? GetById(int id)
         {
+<<<<<<< HEAD
             Movie movie = null;
             using (SqlCommand command = _connection.CreateCommand())
             {
@@ -137,6 +164,14 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
 
 
             }
+=======
+            throw new NotImplementedException();
+        }
+
+        public void UpdateMovie(Movie movie)
+        {
+            throw new NotImplementedException();
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
         }
     }
 }

@@ -9,7 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
+<<<<<<< HEAD
 builder.Services.AddTransient<SqlConnection>(c => new SqlConnection(builder.Configuration.GetConnectionString("default")));
+=======
+builder.Services.AddTransient<IDbConnection>(c => new SqlConnection(builder.Configuration.GetConnectionString("default")));
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 

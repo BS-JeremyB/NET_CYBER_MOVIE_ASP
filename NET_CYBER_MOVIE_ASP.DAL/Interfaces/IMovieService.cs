@@ -14,7 +14,11 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Interfaces
         Movie? GetById(int id);
         void AddMovie(Movie movie);
         void DeleteMovie(int id);
+<<<<<<< HEAD
         void UpdateMovie(int id,Movie movie);
+=======
+        void UpdateMovie(Movie movie);
+>>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
 
     }
 }
