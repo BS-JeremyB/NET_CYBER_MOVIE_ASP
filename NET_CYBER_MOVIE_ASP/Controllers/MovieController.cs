@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NET_CYBER_MOVIE_ASP.DAL.Interfaces;
-<<<<<<< HEAD
 using NET_CYBER_MOVIE_ASP.Models;
 using NET_CYBER_MOVIE_ASP.Models.Mappers;
 using NET_CYBER_MOVIE_ASP.Models.ViewModels;
-=======
-using NET_CYBER_MOVIE_ASP.DAL.Models;
->>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
 
 namespace NET_CYBER_MOVIE_ASP.Controllers
 {
@@ -21,27 +17,18 @@ namespace NET_CYBER_MOVIE_ASP.Controllers
         }
         public IActionResult Index()
         {
-<<<<<<< HEAD
             return View(_service.GetAll().ToAsp());
-=======
-            return View();
->>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
         }
 
         public IActionResult Create()
         {
-<<<<<<< HEAD
   
             MovieForm movie = new MovieForm();
-=======
-            Movie movie = new Movie();
->>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
             return View(movie);
         }
 
 
         [HttpPost]
-<<<<<<< HEAD
         public IActionResult Create(MovieForm movie)
         {
             if (!ModelState.IsValid)
@@ -88,16 +75,10 @@ namespace NET_CYBER_MOVIE_ASP.Controllers
         public IActionResult Delete(int id)
         {
             _service.DeleteMovie(id);
-=======
-        public IActionResult Create(Movie movie) 
-        {
-            _service.AddMovie(movie);
->>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
             return RedirectToAction("Index");
         }
     }
 }
-<<<<<<< HEAD
 
 
 
@@ -111,5 +92,3 @@ namespace NET_CYBER_MOVIE_ASP.Controllers
 ///
 
 // Ajouter au MarkDown > Viewbag, viewdate, tempdata / ViewModel / remettre en forme l'explication sur le cheminement d'une action sur un site asp
-=======
->>>>>>> b1655f162b2c94d2ac3498296f160dea2b55221e
