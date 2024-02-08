@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<SqlConnection>(c => new SqlConnection(builder.Configuration.GetConnectionString("default")));
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 var app = builder.Build();

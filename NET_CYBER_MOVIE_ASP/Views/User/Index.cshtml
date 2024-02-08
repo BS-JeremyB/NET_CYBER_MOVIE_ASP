@@ -1,0 +1,47 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@foreach(User item in Model)
+{
+    
+    <div>
+        <h4>User</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => item.Username)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => item.Username)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => item.LastName)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => item.LastName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => item.FirstName)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => item.FirstName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => item.Email)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => item.Email)
+            </dd>
+        </dl>
+    </div>
+    <hr />
+}
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = item.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
