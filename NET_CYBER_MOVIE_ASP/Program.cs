@@ -1,6 +1,7 @@
 using Microsoft.Data.SqlClient;
 using NET_CYBER_MOVIE_ASP.DAL.Interfaces;
 using NET_CYBER_MOVIE_ASP.DAL.Services;
+using NET_CYBER_MOVIE_ASP.Tools;
 using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<SqlConnection>(c => new SqlConnection(builder.Configuration.GetConnectionString("default")));
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
+builder.Services.AddScoped<SessionManager>();
 
 
 var app = builder.Build();
@@ -26,6 +33,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 

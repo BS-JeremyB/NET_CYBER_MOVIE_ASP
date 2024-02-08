@@ -14,5 +14,6 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Interfaces
         void Update(User user);
         void Delete(int id);
         void Create(User user);
+        User? login(string username, string password);
     }
 }

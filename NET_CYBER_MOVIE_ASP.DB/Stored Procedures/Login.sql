@@ -13,7 +13,7 @@ BEGIN
 			
 			SELECT * 
 			From [User] 
-			Where UserName = @Username AND Password = HASHBYTES('SHA_512', Salt + @Password + @Pepper)
+			Where UserName = @Username AND Password = HASHBYTES('SHA2_512',CONCAT(Salt, @Password, @Pepper))
 
 
 		END

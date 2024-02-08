@@ -12,7 +12,7 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Interfaces
 
         IEnumerable<Movie> GetAll();
         Movie? GetById(int id);
-        void AddMovie(Movie movie);
+        int AddMovie(Movie movie);
         void DeleteMovie(int id);
         void UpdateMovie(int id,Movie movie);
 

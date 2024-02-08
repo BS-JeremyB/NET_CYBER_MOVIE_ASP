@@ -38,6 +38,7 @@
                 @Html.DisplayFor(model => item.Email)
             </dd>
         </dl>
+        <a class="btn btn-primary" asp-controller="User" asp-action="Details" asp-route-id="@item.Id">Details</a>
     </div>
     <hr />
 }

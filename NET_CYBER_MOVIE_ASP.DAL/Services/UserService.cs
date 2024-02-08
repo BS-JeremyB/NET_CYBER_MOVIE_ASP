@@ -81,7 +81,66 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
 
         public User? GetById(int id)
         {
-            throw new NotImplementedException();
+            User user = null;
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText =
+                    "SELECT Id, LastName, FirstName, Username, Email FROM [dbo].[User] WHERE @Id = Id";
+
+                command.Parameters.AddWithValue("@Id", id);
+                _connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new User()
+                        {
+                            Id = reader.GetInt32(0),
+                            LastName = reader.GetString(1),
+                            FirstName = reader.GetString(2),
+                            UserName = reader.GetString(3),
+                            Email = reader.GetString(4),
+
+                        };
+                    }
+                }
+
+                _connection.Close();
+                return user;
+            }
+        }
+
+        public User? login(string username, string password)
+        {
+            User user = null;
+            using(SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "Login";
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Username", username);
+                command.Parameters.AddWithValue("@Password", password);
+
+                _connection.Open();
+
+                using(SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        user = new User()
+                        {
+                            Id = reader.GetInt32(0),
+                            LastName = reader.GetString(1),
+                            FirstName = reader.GetString(2),
+                            UserName = reader.GetString(3),
+                            Email = reader.GetString(4),
+                        };
+                    }
+                }
+
+                return user;
+            }
         }
 
         public void Update(User user)

@@ -3,6 +3,7 @@ using NET_CYBER_MOVIE_ASP.DAL.Interfaces;
 using NET_CYBER_MOVIE_ASP.Models;
 using NET_CYBER_MOVIE_ASP.Models.Mappers;
 using NET_CYBER_MOVIE_ASP.Models.ViewModels;
+using NET_CYBER_MOVIE_ASP.Tools;
 
 namespace NET_CYBER_MOVIE_ASP.Controllers
 {
@@ -10,10 +11,12 @@ namespace NET_CYBER_MOVIE_ASP.Controllers
     {
 
         private readonly IMovieService _service;
+        private readonly SessionManager _session;
 
-        public MovieController(IMovieService service)
+        public MovieController(IMovieService service, SessionManager session)
         {
             _service = service;
+            _session = session;
         }
         public IActionResult Index()
         {
@@ -72,11 +75,15 @@ namespace NET_CYBER_MOVIE_ASP.Controllers
             return RedirectToAction("Index");
         }
 
+        [CustomAuthorize]
         public IActionResult Delete(int id)
         {
             _service.DeleteMovie(id);
             return RedirectToAction("Index");
         }
+
+
+
     }
 }
 

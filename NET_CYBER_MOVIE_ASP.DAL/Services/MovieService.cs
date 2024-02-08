@@ -20,25 +20,38 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
             _connection = connection;
         }
 
-        public void AddMovie(Movie movie)
+        public int AddMovie(Movie movie)
         {
-            using(SqlCommand command = _connection.CreateCommand())
+
+            if (!IfExist(movie)) 
             {
-                command.CommandText = "INSERT INTO Movie (PosterUrl, Title, Description, Release, Score)" +
-                                      "VALUES (@PosterUrl, @Title, @Description, @Release, @Score)  ";
+                using (SqlCommand command = _connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Movie (PosterUrl, Title, Description, Release, Score)" +
+
+                      "VALUES (@PosterUrl, @Title, @Description, @Release, @Score) " +
+                      "SELECT SCOPE_IDENTITY() ";
 
 
-                command.Parameters.AddWithValue("@PosterUrl", movie.PosterUrl); 
-                command.Parameters.AddWithValue("@Title", movie.Title); 
-                command.Parameters.AddWithValue("@Description", movie.Description); 
-                command.Parameters.AddWithValue("@Release", movie.Release); 
-                command.Parameters.AddWithValue("@Score", movie.Score); 
-    
-                _connection.Open();
+                    command.Parameters.AddWithValue("@PosterUrl", movie.PosterUrl);
+                    command.Parameters.AddWithValue("@Title", movie.Title);
+                    command.Parameters.AddWithValue("@Description", movie.Description);
+                    command.Parameters.AddWithValue("@Release", movie.Release);
+                    command.Parameters.AddWithValue("@Score", movie.Score);
 
-                command.ExecuteNonQuery();
-                _connection.Close();
+                    _connection.Open();
+
+                    int id = (int)command.ExecuteScalar();
+                    _connection.Close();
+
+                    return id;
+                }
             }
+            return -1;
+
+
+
+            
    
         }
 
@@ -137,6 +150,33 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
 
 
             }
+        }
+
+
+        public bool IfExist(Movie movie)
+        {
+            bool Exist = false;
+            using(SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM Movie WHERE @Title = LOWER(Titre) AND @Release = YEAR(Release)";
+
+                command.Parameters.AddWithValue("@Title", movie.Title.ToLower());
+                command.Parameters.AddWithValue("@Release", movie.Release.Year);
+
+                _connection.Open();
+                using(IDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read()) 
+                    {
+                        
+                        Exist = true;
+                           
+                    }
+                }
+            _connection.Close();
+            }
+
+            return Exist;
         }
     }
 }
