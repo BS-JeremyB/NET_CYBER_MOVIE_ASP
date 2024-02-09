@@ -3,42 +3,70 @@ using NET_CYBER_MOVIE_ASP.DAL.Interfaces;
 using NET_CYBER_MOVIE_ASP.DAL.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NET_CYBER_MOVIE_ASP.DAL.Services
 {
-    internal class UserMoviesService : IUserMoviesService
+    public class UserMoviesService : IUserMoviesService
     {
         private readonly SqlConnection _connection;
-        private readonly IMovieService _movie;
 
-        public UserMoviesService(SqlConnection connection, IMovieService movie)
+        public UserMoviesService(SqlConnection connection)
         {
             _connection = connection;
-            _movie = movie;
+
         }
 
-        public void AddFavourite(int userId, Movie movie)
-        {
-            
-            _movie.AddMovie(movie);
-
-            using(SqlCommand command = _connection.CreateCommand()) 
-            {
-                
-            }
-        }
 
         public void AddFavourite(int userId, int movieId)
         {
-            throw new NotImplementedException();
+           using(SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "INSERT INTO UserMovie (UserId, MovieId)" +
+                                      "VALUES (@UserId, @MovieId)";
+                command.Parameters.AddWithValue("@UserId", userId);
+                command.Parameters.AddWithValue("@MovieId", movieId);
+
+                _connection.Open();
+                command.ExecuteNonQuery();
+                _connection.Close();
+            }
         }
 
         public IEnumerable<Movie> GetAllByUser(int userId)
         {
-            throw new NotImplementedException();
+            List<Movie> movies = new List<Movie>();
+
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM UserMovie U JOIN Movie M  ON M.Id = U.MovieId " +
+                                      "WHERE U.UserID = @UserId";
+
+                command.Parameters.AddWithValue("@UserId", userId);
+
+                _connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        movies.Add(new Movie
+                        {
+                            Id = reader.GetInt32("id"),
+                            PosterUrl = reader.GetString("posterurl"),
+                            Title = reader.GetString("title"),
+                            Description = reader.GetString("description"),
+                            Release = reader.GetDateTime("release"),
+                            Score = reader.GetInt32("Score")
+                        });
+                    }
+                }
+
+                _connection.Close();
+                return movies;
+            }
         }
 
         public void RemoveFavourite(int userId, int movieId)

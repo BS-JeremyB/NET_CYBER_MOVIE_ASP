@@ -10,7 +10,6 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Interfaces
     public interface IUserMoviesService
     {
         IEnumerable<Movie> GetAllByUser(int userId);
-        void AddFavourite(int userId, Movie movie);
         void AddFavourite(int userId, int movieId);
         void RemoveFavourite(int userId, int movieId);
     }
