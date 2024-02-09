@@ -43,6 +43,7 @@
         </dl>
 
         <a class="btn btn-primary" asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">Details</a> |
+        <a class="btn btn-success" asp-controller="Favoris" asp-action="Add" asp-route-id="@movie.Id">Add to favourite</a> |
         <a class="btn btn-warning" asp-controller="Movie" asp-action="Edit" asp-route-id="@movie.Id"> Edit </a> |
         <a class="btn btn-danger" asp-controller="Movie" asp-action="Delete" asp-route-id="@movie.Id">Delete </a>
 

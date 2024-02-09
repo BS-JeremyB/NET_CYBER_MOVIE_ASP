@@ -12,5 +12,6 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Interfaces
         IEnumerable<Movie> GetAllByUser(int userId);
         void AddFavourite(int userId, int movieId);
         void RemoveFavourite(int userId, int movieId);
+        bool IsMovieInFavourites(int userId, int movieId);
     }
 }

@@ -25,6 +25,8 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
         {
            using(SqlCommand command = _connection.CreateCommand())
             {
+          
+
                 command.CommandText = "INSERT INTO UserMovie (UserId, MovieId)" +
                                       "VALUES (@UserId, @MovieId)";
                 command.Parameters.AddWithValue("@UserId", userId);
@@ -69,6 +71,25 @@ namespace NET_CYBER_MOVIE_ASP.DAL.Services
             }
         }
 
+        public bool IsMovieInFavourites(int userId, int movieId)
+        {
+            bool isInFavourites = false;
+
+            using (SqlCommand command = _connection.CreateCommand())
+            {
+                command.CommandText = "SELECT COUNT(*) FROM UserMovie WHERE UserId = @UserId AND MovieId = @MovieId";
+                command.Parameters.AddWithValue("@UserId", userId);
+                command.Parameters.AddWithValue("@MovieId", movieId);
+
+                _connection.Open();
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                _connection.Close();
+
+                isInFavourites = count > 0;
+            }
+
+            return isInFavourites;
+        }
         public void RemoveFavourite(int userId, int movieId)
         {
             throw new NotImplementedException();

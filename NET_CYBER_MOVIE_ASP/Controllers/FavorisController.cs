@@ -24,5 +24,22 @@ namespace NET_CYBER_MOVIE_ASP.Controllers
             IEnumerable<Movie> movies = _service.GetAllByUser(_session.ConnectedUser.Id).ToAsp();
             return View(movies);
         }
+
+        [CustomAuthorize]
+        public IActionResult Add(int id)
+        {
+
+            if (_service.IsMovieInFavourites(_session.ConnectedUser.Id, id))
+            {
+                
+                return RedirectToAction("Index");
+            }
+
+            _service.AddFavourite(_session.ConnectedUser.Id,id);
+            return RedirectToAction("Index");
+
+        }
+
+
     }
 }
